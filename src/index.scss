@@ -3,3 +3,8 @@ $color: steelblue;
 .skullify {
   color: $color;
 }
+
+.movie-poster > img {
+  width: 30%;
+  height: auto;
+}
