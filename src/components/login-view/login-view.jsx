@@ -5,7 +5,7 @@ export function LoginView(props) {
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(Username, Password);
     props.onLoggedIn(Username);
@@ -31,6 +31,6 @@ LoginView.propTypes = {
   login: PropTypes.shape({
     Username: PropTypes.string.isRequired,
     Password: PropTypes.string.isRequired
-  }).isRequired,
+  }),
   onLoggedIn: PropTypes.func.isRequired
 };

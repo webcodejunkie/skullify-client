@@ -7,7 +7,7 @@ export function RegisterView(props) {
   const [Email, setEmail] = useState('');
   const [Birthday, setBirthday] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(Username, Password, Email, Birthday);
     props.onRegister(Username);

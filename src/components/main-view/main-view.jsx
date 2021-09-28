@@ -37,7 +37,7 @@ export class MainView extends React.Component {
     });
   }
 
-  onRegister(user) {
+  onRegister(register) {
     this.setState({
       register
     });
