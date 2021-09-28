@@ -22924,7 +22924,7 @@ class MainView extends _reactDefault.default.Component {
             selectedMovie: movie
         });
     }
-    onRegister(user) {
+    onRegister(register) {
         this.setState({
             register
         });
@@ -25531,7 +25531,7 @@ function LoginView(props) {
     _s();
     const [Username, setUsername] = _react.useState('');
     const [Password, setPassword] = _react.useState('');
-    const handleSubmit = ()=>{
+    const handleSubmit = (e)=>{
         e.preventDefault();
         console.log(Username, Password);
         props.onLoggedIn(Username);
@@ -25604,7 +25604,7 @@ LoginView.propTypes = {
     login: _propTypesDefault.default.shape({
         Username: _propTypesDefault.default.string.isRequired,
         Password: _propTypesDefault.default.string.isRequired
-    }).isRequired,
+    }),
     onLoggedIn: _propTypesDefault.default.func.isRequired
 };
 var _c;
@@ -25615,7 +25615,7 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"liLLS","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kqNIB","prop-types":"1tgq3"}],"F9ahz":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","@parcel/transformer-js/src/esmodule-helpers.js":"liLLS","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kqNIB"}],"F9ahz":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$31a6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -25638,7 +25638,7 @@ function RegisterView(props) {
     const [Password, setPassword] = _react.useState('');
     const [Email, setEmail] = _react.useState('');
     const [Birthday, setBirthday] = _react.useState('');
-    const handleSubmit = ()=>{
+    const handleSubmit = (e)=>{
         e.preventDefault();
         console.log(Username, Password, Email, Birthday);
         props.onRegister(Username);
