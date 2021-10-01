@@ -11,6 +11,8 @@ html, body, .app-container, .app-container > div {
 }
 .movie-view {
   font-family: "Noto Sans Display", sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .label {
@@ -21,6 +23,11 @@ html, body, .app-container, .app-container > div {
 
 .movie-poster {
   width: 100%;
+}
+.commentSectionBox {
+  font-family: "Noto Sans Display", sans-serif;
+  color: black;
+  background-color: white;
 }
 .loginLayout {
   background-image: url(giphy.71e9b860.gif);

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { MovieCard } from '../movie-card/movie-card';
+import { CommentSection } from '../comment-section-view/comment-section-view';
 
 import './movie-view.scss';
 
@@ -65,7 +66,8 @@ export class MovieView extends React.Component {
               </div>
             </Col>
           </Row>
-          <Button variant="danger" onClick={() => { onBackClick(null); }}>Back</Button>
+          <CommentSection />
+          <Button className="m-4" variant="danger" onClick={() => { onBackClick(null); }}>Back</Button>
         </div>
       </Container>
     );

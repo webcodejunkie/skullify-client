@@ -11,7 +11,6 @@ import { Navbar } from '../navbar-view/navbar-view';
 import { CarouselView } from '../carousel-view/carousel-view';
 
 import Container from 'react-bootstrap/Container';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 

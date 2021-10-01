@@ -1,5 +1,7 @@
 .movie-view {
   font-family: 'Noto Sans Display', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .label {
