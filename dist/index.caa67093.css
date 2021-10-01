@@ -1,9 +1,102 @@
-.skullify {
-  color: steelblue;
+html, body, .app-container, .app-container > div {
+  background-color: black;
+  color: white;
+  height: 100%;
+}
+.movie-card {
+  font-family: "Noto Sans Display", sans-serif;
+  color: black;
+  width: 16rem;
+  text-align: center;
+}
+.movie-view {
+  font-family: "Noto Sans Display", sans-serif;
 }
 
-.movie-poster > img {
-  width: 30%;
-  height: auto;
+.label {
+  font-family: "Creepster", cursive;
+  font-size: 45px;
+  letter-spacing: 2px;
+}
+
+.movie-poster {
+  width: 100%;
+}
+.loginLayout {
+  background-image: url(giphy.71e9b860.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 2;
+}
+
+.creepyHeaders {
+  color: red;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.headersWhite {
+  font-family: "Noto Sans Display", sans-serif;
+  color: white;
+  letter-spacing: 3px;
+  text-align: center;
+}
+.navbarSkullify {
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.skullifyBrand {
+  font-family: "Nosifer", cursive;
+  color: red;
+  letter-spacing: 3px;
+}
+.importantText {
+  color: red;
+}
+
+.creepyHeaders {
+  font-family: "Nosifer", cursive;
+  color: red;
+  letter-spacing: 3px;
+}
+
+.registerLayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 2;
+}
+.main-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .main-view {
+    justify-content: center;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+}
+.captionBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carouselSpace {
+  margin-bottom: 5rem;
 }
 /*# sourceMappingURL=index.caa67093.css.map */

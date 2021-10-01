@@ -1,0 +1,17 @@
+.importantText {
+  color: red;
+}
+
+.creepyHeaders {
+  font-family: 'Nosifer', cursive;
+  color: red;
+  letter-spacing: 3px;
+}
+
+.registerLayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 2;
+}

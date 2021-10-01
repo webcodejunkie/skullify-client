@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { Navbar } from '../navbar-view/navbar-view';
+
+import './register-view.scss';
+
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+
 export function RegisterView(props) {
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
@@ -14,28 +22,45 @@ export function RegisterView(props) {
   };
 
   return (
-    <form>
-      <label>
-        Username:
-        <input type='text' value={Username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type='password' value={Password} onChange={e => setPassword(e.target.value)} />
+    <div className="d-flex flex-column">
+      < Navbar />
+      <Container className="registerLayout">
 
-      </label>
-      <label>
-        Email:
-        <input type='email' value={Email} onChange={e => setEmail(e.target.value)} />
+        <div className="text-center">
+          <h1 className="creepyHeaders">Welcome To Skullify</h1>
+          <p>Skullify is a platform created specifically for horror fanatics. Enjoy browsing a multitude of content such as TV series, movies, and reviews!</p>
+          <p>Explore the deeper world of terror that awaits you..</p>
+        </div>
 
-      </label>
-      <label>
-        Birthday:
-        <input type='date' value={Birthday} onChange={e => setBirthday(e.target.value)} />
+        <div className="text-center creepyHeaders">
+          <h2>Register Now!</h2>
+        </div>
 
-      </label>
-      <button type='submit' onClick={handleSubmit}>Register</button>
-    </form>
+        <Form className="d-flex flex-column">
+          <Form.Group>
+            Username
+            <Form.Control type='text' value={Username} onChange={e => setUsername(e.target.value)} />
+          </Form.Group>
+          <Form.Group>
+            Password
+            <Form.Control type='password' value={Password} onChange={e => setPassword(e.target.value)} />
+
+          </Form.Group>
+          <Form.Group>
+            Email Address
+            <Form.Control type='email' value={Email} onChange={e => setEmail(e.target.value)} />
+            <Form.Text className="importantText">We'll never share your email with anyone else </Form.Text>
+
+          </Form.Group>
+          <Form.Group>
+            Birthday
+            <Form.Control type='date' value={Birthday} onChange={e => setBirthday(e.target.value)} />
+
+          </Form.Group>
+          <Button variant="success" type='submit' onClick={handleSubmit}>Register</Button>
+        </Form>
+      </Container>
+    </div>
   );
 }
 
