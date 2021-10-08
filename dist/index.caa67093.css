@@ -29,41 +29,34 @@ html, body, .app-container, .app-container > div {
   color: black;
   background-color: white;
 }
-.loginLayout {
-  background-image: url(giphy.71e9b860.gif);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex-grow: 2;
+.captionBackground {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.creepyHeaders {
-  color: red;
-  letter-spacing: 3px;
-  text-align: center;
-}
-
-.headersWhite {
-  font-family: "Noto Sans Display", sans-serif;
-  color: white;
-  letter-spacing: 3px;
-  text-align: center;
+.carouselSpace {
+  margin-bottom: 5rem;
+  z-index: -1;
 }
 .navbarSkullify {
   width: 100%;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
+  background-color: transparent;
+  z-index: 2;
+  padding: 3rem;
 }
 
 .skullifyBrand {
   font-family: "Nosifer", cursive;
   color: red;
   letter-spacing: 3px;
+}
+
+.navbarLinkText {
+  color: #8f8d91;
+  padding: 8px;
+}
+.navbarLinkText:hover {
+  color: white;
 }
 .importantText {
   color: red;
@@ -82,12 +75,56 @@ html, body, .app-container, .app-container > div {
   flex-direction: column;
   flex-grow: 2;
 }
+.loginLayout {
+  background-image: url(giphy.71e9b860.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+}
+
+.creepyHeaders {
+  color: red;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.headersWhite {
+  font-family: "Noto Sans Display", sans-serif;
+  color: white;
+  letter-spacing: 3px;
+  text-align: center;
+}
 .main-view {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.movie-title {
+  padding: 50px 0 50px 0;
+}
+
+.movie-description {
+  padding: 50px 0 50px 0;
+}
+
+.genre-title {
+  padding: 50px 0 50px 0;
+}
+
+.director-title {
+  padding: 50px 0 50px 0;
 }
 
 @media only screen and (max-width: 767px) {
@@ -99,11 +136,7 @@ html, body, .app-container, .app-container > div {
     flex-direction: column;
   }
 }
-.captionBackground {
-  background-color: rgba(0, 0, 0, 0.5);
-}
 
-.carouselSpace {
-  margin-bottom: 5rem;
-}
+
+
 /*# sourceMappingURL=index.caa67093.css.map */

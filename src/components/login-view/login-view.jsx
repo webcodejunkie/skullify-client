@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import { Navbar } from '../navbar-view/navbar-view';
 
@@ -15,8 +16,17 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(Username, Password);
-    props.onLoggedIn(Username);
+    axios.post('https://skullify.herokuapp.com/login', {
+      Username: Username,
+      Password: Password
+    })
+      .then(responce => {
+        const data = responce.data;
+        props.onLoggedIn(data);
+      })
+      .catch(err => {
+        console.log('no such user exists')
+      });
   };
 
   return (
@@ -24,7 +34,7 @@ export function LoginView(props) {
       <Navbar />
       <Container fluid className="loginLayout">
         <div>
-          <h1 className="headersWhite">Login To Resume The <span className="creepyHeaders">Terror</span></h1>
+          <h1 className="headersWhite">Resume The <span className="creepyHeaders">Terror</span></h1>
         </div>
         <Form className="d-flex flex-column">
           <Form.Group>

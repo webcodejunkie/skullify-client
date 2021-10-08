@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import './main-view.scss';
 
 import { LoginView } from '../login-view/login-view';
@@ -9,10 +12,14 @@ import { MovieView } from '../movie-view/movie-view';
 import { RegisterView } from '../register-view/register-view';
 import { Navbar } from '../navbar-view/navbar-view';
 import { CarouselView } from '../carousel-view/carousel-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
 export class MainView extends React.Component {
 
@@ -20,81 +27,112 @@ export class MainView extends React.Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: null,
-      user: null,
-      register: null
+      user: null
     };
   }
 
-
-  componentDidMount() {
-    axios.get('https://skullify.herokuapp.com/movies')
+  getMovies(token) {
+    axios.get('https://skullify.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(response => {
         this.setState({
           movies: response.data
         });
       })
-      .catch(error => {
+      .catch(function (error) {
         console.log(error);
       });
   }
 
-  setSelectedMovie(movie) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      selectedMovie: movie
+      user: authData.user.Username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('token', authData.user.Username);
+    this.getMovies(authData.token);
   }
 
-  onRegister(register) {
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.setState({
-      register
+      user: null
     });
   }
-
-  onLoggedIn(user) {
-    this.setState({
-      user
-    });
-  }
-
 
   render() {
 
-    const { movies, selectedMovie, user, register } = this.state;
-
-    if (!register) return <RegisterView onRegister={register => this.onRegister(register)} />
-
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-
-
-    if (movies.length === 0) return <div className="main-view"></div>;
+    const { movies, user } = this.state;
 
     return (
-      <div>
+      <Router>
+        <Route exact path="/" render={() => {
 
-        <Navbar />
+          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
-        <CarouselView />
+          if (movies.length === 0) return <div className="main-view"></div>;
 
-        <Container className="main-view">
-          {selectedMovie
+          return (
+            <div>
+              <Navbar />
+              <Container className="d-flex flex-row justify-content-end align-items-baseline">
+                <div className="mr-2">
+                  <p>Signed in as <span> <Link to={`/profile/${user}`}>{user}</Link> </span> </p>
+                </div>
+                <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
+              </Container>
+              <CarouselView />
+              <Container className="main-view">
 
-            ? <MovieView movie={selectedMovie} onBackClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie); }} />
+                {
+                  movies.map(m => (
+                    <Row className="justify-content-center" key={m._id}>
+                      <Col className="m-2">
+                        <MovieCard movie={m} />
+                      </Col>
+                    </Row>
+                  ))
+                }
 
-            : movies.map(movie => (
+              </Container>
+            </div>
+          );
+        }} />
 
-              <Row className="justify-content-center" key={movie._id}>
+        <Route path="/register" render={() => {
+          if (user) return <Redirect to="/" />
 
-                <Col className="m-2">
+          return <RegisterView />
+        }} />
 
-                  <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />
+        <Route path="/profile/:user" render={() => {
+          return <ProfileView />
+        }} />
 
-                </Col>
-              </Row>
-            ))
-          }
-        </Container>
-      </div>
+        <Route path="/movies/:movieId" render={({ match, history }) => {
+          return <Col>
+            <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
+          </Col>
+        }} />
+
+        <Route path="/directors/:name" render={({ match, history }) => {
+          if (!movies) return <div className="main-view" />
+          return <Col>
+            <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
+          </Col>
+        }} />
+
+        <Route path="/genres/:title" render={({ match, history }) => {
+          if (!movies) return <div className="main-view" />
+          return <Col>
+            <GenreView genre={movies.find(m => m.Genre.Title === match.params.title).Genre} onBackClick={() => history.goBack()} />
+          </Col>
+        }} />
+      </Router >
     );
   }
 }

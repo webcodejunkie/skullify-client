@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import { MovieCard } from '../movie-card/movie-card';
 import { CommentSection } from '../comment-section-view/comment-section-view';
+import { CarouselView } from '../carousel-view/carousel-view';
+import { Navbar } from '../navbar-view/navbar-view';
 
 import './movie-view.scss';
 
@@ -14,24 +16,14 @@ import Image from 'react-bootstrap/Image';
 
 export class MovieView extends React.Component {
 
-  keypressCallback(event) {
-    console.log(event.key);
-  }
-
-  componentDidMount() {
-    document.addEventListener('keypress', this.keypressCallback);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keypress', this.keypressCallback);
-  }
-
   render() {
     const { movie, onBackClick } = this.props;
 
 
     return (
       <Container>
+        <Navbar />
+        <CarouselView />
         <div className="movie-view">
           <Row>
             <Col>
@@ -50,19 +42,15 @@ export class MovieView extends React.Component {
               </div>
               <div className="genre-title">
                 <div className="label">Genre</div>
-                <span className="value">{movie.Genre.Title}</span>
-              </div>
-              <div className="genre-description">
-                <div className="label">Genre Description</div>
-                <span className="value">{movie.Genre.Description}</span>
+                <Link to={`/genres/${movie.Genre.Title}`}>
+                  <span className="value">{movie.Genre.Title}</span>
+                </Link>
               </div>
               <div className="director-title">
                 <div className="label">Director</div>
-                <span className="value">{movie.Director.Name}</span>
-              </div>
-              <div className="director-bio">
-                <div className="label">Bio</div>
-                <span className="value">{movie.Director.Bio}</span>
+                <Link to={`/directors/${movie.Director.Name}`}>
+                  <span className="value">{movie.Director.Name}</span>
+                </Link>
               </div>
             </Col>
           </Row>

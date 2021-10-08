@@ -8,6 +8,7 @@ import './register-view.scss';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 export function RegisterView(props) {
   const [Username, setUsername] = useState('');
@@ -18,8 +19,22 @@ export function RegisterView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(Username, Password, Email, Birthday);
-    props.onRegister(Username);
   };
+
+  axios.post('https://skullify.herokuapp.com/register', {
+    Username: Username,
+    Password: Password,
+    Email: Email,
+    Birthday: Birthday
+  })
+    .then(responce => {
+      const data = responce.data;
+      console.log(data)
+      window.open('/', '_self');
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
 
   return (
     <div className="d-flex flex-column">
@@ -70,7 +85,6 @@ RegisterView.propTypes = {
     Password: PropTypes.string.isRequired,
     Email: PropTypes.string.isRequired,
     Birthday: PropTypes.string.isRequired
-  }),
-  onRegister: PropTypes.func.isRequired
+  })
 };
 
