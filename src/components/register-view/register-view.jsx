@@ -11,30 +11,30 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
 export function RegisterView(props) {
-  const [Username, setUsername] = useState('');
-  const [Password, setPassword] = useState('');
-  const [Email, setEmail] = useState('');
-  const [Birthday, setBirthday] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(Username, Password, Email, Birthday);
-  };
+    console.log(username, password, email, birthday);
 
-  axios.post('https://skullify.herokuapp.com/register', {
-    Username: Username,
-    Password: Password,
-    Email: Email,
-    Birthday: Birthday
-  })
-    .then(responce => {
-      const data = responce.data;
-      console.log(data)
-      window.open('/', '_self');
+    axios.post('https://skullify.herokuapp.com/register', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
     })
-    .catch(e => {
-      console.log('error registering the user')
-    });
+      .then(responce => {
+        const data = responce.data;
+        console.log(data)
+        window.open('/', '_self');
+      })
+      .catch(e => {
+        console.log('error registering the user')
+      });
+  };
 
   return (
     <div className="d-flex flex-column">
@@ -54,22 +54,22 @@ export function RegisterView(props) {
         <Form className="d-flex flex-column">
           <Form.Group>
             Username
-            <Form.Control type='text' value={Username} onChange={e => setUsername(e.target.value)} />
+            <Form.Control type='text' value={username} onChange={e => setUsername(e.target.value)} />
           </Form.Group>
           <Form.Group>
             Password
-            <Form.Control type='password' value={Password} onChange={e => setPassword(e.target.value)} />
+            <Form.Control type='password' value={password} onChange={e => setPassword(e.target.value)} />
 
           </Form.Group>
           <Form.Group>
             Email Address
-            <Form.Control type='email' value={Email} onChange={e => setEmail(e.target.value)} />
+            <Form.Control type='email' value={email} onChange={e => setEmail(e.target.value)} />
             <Form.Text className="importantText">We'll never share your email with anyone else </Form.Text>
 
           </Form.Group>
           <Form.Group>
             Birthday
-            <Form.Control type='date' value={Birthday} onChange={e => setBirthday(e.target.value)} />
+            <Form.Control type='date' value={birthday} onChange={e => setBirthday(e.target.value)} />
 
           </Form.Group>
           <Button variant="success" type='submit' onClick={handleSubmit}>Register</Button>

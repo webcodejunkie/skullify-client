@@ -110,7 +110,7 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/profile/:user" render={() => {
-          return <ProfileView />
+          return <ProfileView user={user} />
         }} />
 
         <Route path="/movies/:movieId" render={({ match, history }) => {
