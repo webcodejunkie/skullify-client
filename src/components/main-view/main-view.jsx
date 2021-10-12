@@ -32,7 +32,7 @@ export class MainView extends React.Component {
   }
 
   getMovies(token) {
-    axios.get('https://skullify.herokuapp.com/movies', {
+    axios.get(`https://skullify.herokuapp.com/movies`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -109,8 +109,8 @@ export class MainView extends React.Component {
           return <RegisterView />
         }} />
 
-        <Route path="/profile/:user" render={() => {
-          return <ProfileView user={user} />
+        <Route path="/profile/:user" render={({ history }) => {
+          return <ProfileView onBackClick={() => history.goBack()} />
         }} />
 
         <Route path="/movies/:movieId" render={({ match, history }) => {

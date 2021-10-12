@@ -5,6 +5,7 @@ import './profile-view.scss';
 
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 
 export class ProfileView extends React.Component {
 
@@ -12,31 +13,30 @@ export class ProfileView extends React.Component {
     super();
 
     this.state = {
-      user: null
+      username: null,
+      password: null,
+      email: null
     }
   }
 
-  getAuth(authData) {
-    console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
-
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('token', authData.user.Username);
-
-    this.getUser(authData.token);
+  componentDidMount() {
+    const accessToken = localStorage.getItem('token');
+    localStorage.setItem('token', accessToken);
+    this.getUser(accessToken);
   }
 
   getUser(token) {
-    axios.get('https://skullify.herokuapp.com/users', {
+    const username = localStorage.getItem('token');
+
+    axios.get(`https://skullify.herokuapp.com/users/${username}`, {
       header: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
         this.setState({
-          user: response.data
+          username: response.data.Username,
+          password: response.data.Password
         },
-          console.log(user));
+          console.log(username, password));
       })
       .catch(function (error) {
         console.log(error);
@@ -48,13 +48,14 @@ export class ProfileView extends React.Component {
 
   render() {
 
-    const { user, onBackClick } = this.props;
+    const { username, onBackClick } = this.props;
 
     return (
       <Container>
         <Image src="https://via.placeholder.com/150" roundedCircle />
         <div>
-          <h2>{user}</h2>
+          <h2>{username}</h2>
+          <Button onClick={() => { onBackClick() }}>Back</Button>
         </div>
       </Container>
     );
