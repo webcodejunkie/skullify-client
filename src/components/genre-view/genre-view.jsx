@@ -8,6 +8,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
+import { Navbar } from '../navbar-view/navbar-view';
+
 export class GenreView extends React.Component {
   render() {
 
@@ -15,8 +17,9 @@ export class GenreView extends React.Component {
 
     return (
       <Container>
+        <Navbar />
         <Row>
-          <Col className="p-1">
+          <Col className="p-5">
             <div>
               <div className="label">Genre</div>
               <div className="value">{genre.Title}</div>

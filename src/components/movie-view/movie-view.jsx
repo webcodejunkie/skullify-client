@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+
 import { Link } from 'react-router-dom';
 
 import { CommentSection } from '../comment-section-view/comment-section-view';
@@ -16,6 +18,34 @@ import Image from 'react-bootstrap/Image';
 
 export class MovieView extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {
+      isFavorite: 'Favorite'
+    };
+  }
+
+  onFavorite() {
+    this.setState({
+      isFavorite: 'Favorited!'
+    });
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user');
+
+    axios.post(`https://skullify.herokuapp.com/users/${username}/movies/` + this.props.movie._id, {}, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+
+
+
   render() {
     const { movie, onBackClick } = this.props;
 
@@ -26,10 +56,12 @@ export class MovieView extends React.Component {
         <CarouselView />
         <div className="movie-view">
           <Row>
-            <Col>
+            <Col className="d-flex flex-column">
               <div>
                 <Image className="movie-poster" src={movie.ImagePath} />
               </div>
+              <Button className="followButton" onClick={() => this.onFavorite()} >{this.state.isFavorite}</Button>
+
             </Col>
             <Col className="movieViewBlock">
               <div className="movie-title">

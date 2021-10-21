@@ -45,6 +45,7 @@ export class MainView extends React.Component {
       });
   }
 
+
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -52,7 +53,7 @@ export class MainView extends React.Component {
     });
 
     localStorage.setItem('token', authData.token);
-    localStorage.setItem('token', authData.user.Username);
+    localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
   }
 
@@ -81,7 +82,7 @@ export class MainView extends React.Component {
               <Navbar />
               <Container className="d-flex flex-row justify-content-end align-items-baseline">
                 <div className="mr-2">
-                  <p>Signed in as <span> <Link to={`/profile/${user}`}>{user}</Link> </span> </p>
+                  <p>Signed in as <span> <Link to={`/users/${user}`}>{user}</Link> </span> </p>
                 </div>
                 <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
               </Container>
@@ -109,8 +110,8 @@ export class MainView extends React.Component {
           return <RegisterView />
         }} />
 
-        <Route path="/profile/:user" render={({ history }) => {
-          return <ProfileView onBackClick={() => history.goBack()} />
+        <Route path="/users/:username" render={({ history }) => {
+          return <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
         }} />
 
         <Route path="/movies/:movieId" render={({ match, history }) => {

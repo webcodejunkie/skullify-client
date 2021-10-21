@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
+import { Navbar } from '../navbar-view/navbar-view';
 
 export class DirectorView extends React.Component {
   render() {
@@ -15,8 +16,9 @@ export class DirectorView extends React.Component {
 
     return (
       <Container>
+        <Navbar />
         <Row>
-          <Col>
+          <Col className="p-5">
             <div>
               <div className="label">Name</div>
               <div className="value">{director.Name}</div>

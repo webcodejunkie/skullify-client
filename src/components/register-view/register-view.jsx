@@ -37,7 +37,7 @@ export function RegisterView(props) {
   };
 
   return (
-    <div className="d-flex flex-column">
+    <div className="registerScreen">
       < Navbar />
       <Container className="registerLayout">
 
