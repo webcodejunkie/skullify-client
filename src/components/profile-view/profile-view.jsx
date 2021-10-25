@@ -66,13 +66,14 @@ export class ProfileView extends React.Component {
 
     axios.put(`https://skullify.herokuapp.com/users/${username}`,
       {
-        headers: { Authorization: `Bearer ${token}` },
         data: {
-          Username: Username,
-          Password: Password,
-          Email: Email,
-          Birthday: Birthday
-        }
+          Username: this.state.Username,
+          Password: this.state.Password,
+          Email: this.state.Password,
+          Birthday: this.state.Password
+        },
+
+        headers: { Authorization: `Bearer ${token}` }
       })
       .then((response) => {
         this.setState({
@@ -81,7 +82,7 @@ export class ProfileView extends React.Component {
           Password: response.data.Password,
           Email: response.data.Email,
           Birthday: response.data.Birthday
-        })
+        });
         alert(username + " has been updated!");
       })
       .catch(function (error) {
@@ -189,21 +190,21 @@ export class ProfileView extends React.Component {
           <Form className="formDisplay" onSubmit={(e) => this.editUser(e, this.Username, this.Password, this.Email, this.Birthday)}>
             <Form.Group>
               Username
-              <Form.Control type='text' name="Username" value={Username} placeholder="New Username" onChange={(e) => this.setUsername(e.target.value)} required />
+              <Form.Control type='text' name="Username" placeholder="New Username" onChange={(e) => this.setUsername(e.target.value)} required />
             </Form.Group>
             <Form.Group>
               Password
-              <Form.Control type='password' name="Password" value={Password} placeholder="New Password" onChange={(e) => this.setPassword(e.target.value)} required />
+              <Form.Control type='password' name="Password" placeholder="New Password" onChange={(e) => this.setPassword(e.target.value)} required />
 
             </Form.Group>
             <Form.Group>
               Email Address
-              <Form.Control type='email' name="Email" value={Email} placeholder="New Email" onChange={(e) => this.setEmail(e.target.value)} required />
+              <Form.Control type='email' name="Email" placeholder="New Email" onChange={(e) => this.setEmail(e.target.value)} required />
 
             </Form.Group>
             <Form.Group>
               Birthday
-              <Form.Control type='date' name="Birthday" value={Birthday} onChange={(e) => this.setBirthday(e.target.value)} />
+              <Form.Control type='date' name="Birthday" onChange={(e) => this.setBirthday(e.target.value)} />
 
             </Form.Group>
             <div className="marginSpacer">
