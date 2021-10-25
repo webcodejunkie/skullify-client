@@ -23,10 +23,10 @@ export class ProfileView extends React.Component {
     super();
 
     this.state = {
-      Username: "",
-      Password: "",
-      Email: "",
-      Birthday: "",
+      Username: null,
+      Password: null,
+      Email: null,
+      Birthday: null,
       FavoriteMovies: []
     };
   }
@@ -59,25 +59,29 @@ export class ProfileView extends React.Component {
 
   // Edit The Current User
 
-  editUser() {
+  editUser(e) {
+    e.preventDefault();
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
     axios.put(`https://skullify.herokuapp.com/users/${username}`,
       {
-        Username: this.state.Username,
-        Password: this.state.Password,
-        Email: this.state.Email,
-        Birthday: this.state.Birthday
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
+        data: {
+          Username: Username,
+          Password: Password,
+          Email: Email,
+          Birthday: Birthday
+        }
       })
       .then((response) => {
-        const data = response.data;
-        console.log(data);
-        localStorage.getItem('user', this.state.Username);
-
+        this.setState({
+          Name: response.data.Name,
+          Username: response.data.Username,
+          Password: response.data.Password,
+          Email: response.data.Email,
+          Birthday: response.data.Birthday
+        })
         alert(username + " has been updated!");
       })
       .catch(function (error) {
@@ -103,6 +107,8 @@ export class ProfileView extends React.Component {
       });
   }
 
+  // Delete A User
+
   onDeleteUser() {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
@@ -121,11 +127,21 @@ export class ProfileView extends React.Component {
       })
   }
 
-  setValue(e) {
-    let { name, value } = e.target;
-    this.setState({
-      [name]: value
-    });
+
+  setUsername(value) {
+    this.Username = value;
+  }
+
+  setPassword(value) {
+    this.Password = value;
+  }
+
+  setEmail(value) {
+    this.Email = value;
+  }
+
+  setBirthday(value) {
+    this.Birthday = value;
   }
 
 
@@ -170,28 +186,28 @@ export class ProfileView extends React.Component {
           <div>
             <h4>EDIT PROFILE</h4>
           </div>
-          <Form className="formDisplay">
+          <Form className="formDisplay" onSubmit={(e) => this.editUser(e, this.Username, this.Password, this.Email, this.Birthday)}>
             <Form.Group>
               Username
-              <Form.Control type='text' name="Username" placeholder="New Username" onChange={(e) => this.setValue(e)} required />
+              <Form.Control type='text' name="Username" value={Username} placeholder="New Username" onChange={(e) => this.setUsername(e.target.value)} required />
             </Form.Group>
             <Form.Group>
               Password
-              <Form.Control type='password' name="Password" placeholder="New Password" onChange={(e) => this.setValue(e)} required />
+              <Form.Control type='password' name="Password" value={Password} placeholder="New Password" onChange={(e) => this.setPassword(e.target.value)} required />
 
             </Form.Group>
             <Form.Group>
               Email Address
-              <Form.Control type='email' name="Email" placeholder="New Email" onChange={(e) => this.setValue(e)} required />
+              <Form.Control type='email' name="Email" value={Email} placeholder="New Email" onChange={(e) => this.setEmail(e.target.value)} required />
 
             </Form.Group>
             <Form.Group>
               Birthday
-              <Form.Control type='date' name="Birthday" onChange={(e) => this.setValue(e)} />
+              <Form.Control type='date' name="Birthday" value={Birthday} onChange={(e) => this.setBirthday(e.target.value)} />
 
             </Form.Group>
             <div className="marginSpacer">
-              <Button variant="success" onClick={() => this.editUser()} >Update</Button>
+              <Button variant="success" type="submit" >Update</Button>
             </div>
           </Form>
           <div className="marginSpacer">

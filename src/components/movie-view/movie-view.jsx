@@ -32,6 +32,7 @@ export class MovieView extends React.Component {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
 
+
     axios.post(`https://skullify.herokuapp.com/users/${username}/movies/` + this.props.movie._id, {}, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -43,16 +44,31 @@ export class MovieView extends React.Component {
       });
   }
 
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
+    window.open('/', '_self');
+  }
+
 
 
 
   render() {
-    const { movie, onBackClick } = this.props;
+    const { movie, onBackClick, user } = this.props;
 
 
     return (
       <Container>
         <Navbar />
+        <Container className="d-flex flex-row justify-content-end align-items-baseline">
+          <div className="mr-2">
+            <p>Signed in as <span> <Link to={`/users/${user}`}>{user}</Link> </span> </p>
+          </div>
+          <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
+        </Container>
         <CarouselView />
         <div className="movie-view">
           <Row>
