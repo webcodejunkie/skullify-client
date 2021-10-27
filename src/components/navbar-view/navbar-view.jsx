@@ -18,9 +18,11 @@ export class Navbar extends React.Component {
     return (
       <Navbar variant="dark" className="navbarSkullify">
         <Container>
-          <Navbar.Brand href="#home" className="skullifyBrand">
-            SKULLIFY
-          </Navbar.Brand>
+          <Link className="navbarLinkText" to={`/`}>
+            <Navbar.Brand href="#home" className="skullifyBrand">
+              SKULLIFY
+            </Navbar.Brand>
+          </Link>
           <Nav className="me-auto" variant="dark">
             <Link className="navbarLinkText" to={`/`}>
               Home

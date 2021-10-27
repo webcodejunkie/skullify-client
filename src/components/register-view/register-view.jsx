@@ -47,10 +47,6 @@ export function RegisterView(props) {
           <p>Explore the deeper world of terror that awaits you..</p>
         </div>
 
-        <div className="text-center creepyHeaders">
-          <h2>Register Now!</h2>
-        </div>
-
         <Form className="d-flex flex-column">
           <Form.Group>
             Username

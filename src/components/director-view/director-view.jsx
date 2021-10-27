@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './director-view.scss';
 
@@ -8,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import { Navbar } from '../navbar-view/navbar-view';
+import { GenreView } from '../genre-view/genre-view';
 
 export class DirectorView extends React.Component {
   render() {
@@ -34,3 +36,12 @@ export class DirectorView extends React.Component {
     );
   }
 }
+
+DirectorView.propTypes = {
+  movie: PropTypes.shape({
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired
+    }).isRequired,
+  })
+};

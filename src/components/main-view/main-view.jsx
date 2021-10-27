@@ -82,7 +82,7 @@ export class MainView extends React.Component {
               <Navbar />
               <Container className="d-flex flex-row justify-content-end align-items-baseline">
                 <div className="mr-2">
-                  <p>Signed in as <span> <Link to={`/users/${user}`}>{user}</Link> </span> </p>
+                  <p>Signed in as <span> <Link to={`/users/${user}`}>{localStorage.getItem('user')}</Link> </span> </p>
                 </div>
                 <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
               </Container>
@@ -111,16 +111,26 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/users/:username" render={({ history }) => {
+          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+
+          if (movies.length === 0) return <div className="main-view"></div>;
+
           return <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
         }} />
 
         <Route path="/movies/:movieId" render={({ match, history }) => {
+          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+
+          if (movies.length === 0) return <div className="main-view"></div>;
+
           return <Col>
             <MovieView user={user} movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
           </Col>
         }} />
 
         <Route path="/directors/:name" render={({ match, history }) => {
+          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+
           if (!movies) return <div className="main-view" />
           return <Col>
             <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
@@ -128,6 +138,8 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/genres/:title" render={({ match, history }) => {
+          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+
           if (!movies) return <div className="main-view" />
           return <Col>
             <GenreView genre={movies.find(m => m.Genre.Title === match.params.title).Genre} onBackClick={() => history.goBack()} />

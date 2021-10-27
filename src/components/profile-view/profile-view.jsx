@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import './profile-view.scss';
 
@@ -36,6 +37,15 @@ export class ProfileView extends React.Component {
     this.getUser(accessToken);
   }
 
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
+    window.open('/', '_self');
+  }
+
   // Get The Current User
 
   getUser(token) {
@@ -66,23 +76,25 @@ export class ProfileView extends React.Component {
 
     axios.put(`https://skullify.herokuapp.com/users/${username}`,
       {
-        data: {
-          Username: this.state.Username,
-          Password: this.state.Password,
-          Email: this.state.Password,
-          Birthday: this.state.Password
-        },
-
+        Username: this.state.Username,
+        Password: this.state.Password,
+        Email: this.state.Email,
+        Birthday: this.state.Birthday
+      },
+      {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then((response) => {
         this.setState({
-          Name: response.data.Name,
           Username: response.data.Username,
           Password: response.data.Password,
           Email: response.data.Email,
           Birthday: response.data.Birthday
         });
+        localStorage.setItem('user', this.state.Username);
+        const data = response.data;
+        console.log(data);
+        console.log(this.state.Username);
         alert(username + " has been updated!");
       })
       .catch(function (error) {
@@ -130,19 +142,19 @@ export class ProfileView extends React.Component {
 
 
   setUsername(value) {
-    this.Username = value;
+    this.state.Username = value;
   }
 
   setPassword(value) {
-    this.Password = value;
+    this.state.Password = value;
   }
 
   setEmail(value) {
-    this.Email = value;
+    this.state.Email = value;
   }
 
   setBirthday(value) {
-    this.Birthday = value;
+    this.state.Birthday = value;
   }
 
 
@@ -157,7 +169,12 @@ export class ProfileView extends React.Component {
     return (
       <Container className="profileWrapper">
         <Navbar />
-        <CarouselView />
+        <Container className="d-flex flex-row justify-content-end align-items-baseline">
+          <div className="mr-2">
+            <p>Signed in as <span> <Link to={`/users/${user}`}>{this.state.Username}</Link> </span> </p>
+          </div>
+          <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
+        </Container>
         <Button className="backProfileButton" variant="danger" onClick={() => { onBackClick() }}>Back</Button>
         <div className="profileInformation">
           <div className="profileContent">
@@ -187,7 +204,7 @@ export class ProfileView extends React.Component {
           <div>
             <h4>EDIT PROFILE</h4>
           </div>
-          <Form className="formDisplay" onSubmit={(e) => this.editUser(e, this.Username, this.Password, this.Email, this.Birthday)}>
+          <Form className="formDisplay" onSubmit={(e) => this.editUser(e)}>
             <Form.Group>
               Username
               <Form.Control type='text' name="Username" placeholder="New Username" onChange={(e) => this.setUsername(e.target.value)} required />
@@ -222,8 +239,10 @@ export class ProfileView extends React.Component {
               FavoritedMovies.map((movie) => (
                 <Row className="justify-content-center flex-wrap" key={movie._id}>
                   <Col className="m-2 d-flex flex-column">
-                    <MovieCard movie={movie} />
-                    <Button variant="danger" onClick={() => { this.onUnfavorite(movie._id) }} >Unfavorite</Button>
+                    <div className="d-flex flex-column align-items-center favoriteListMovies">
+                      <MovieCard movie={movie} />
+                      <Button className="unfavoriteMovieButton" variant="danger" onClick={() => { this.onUnfavorite(movie._id) }} >Unfavorite</Button>
+                    </div>
                   </Col>
                 </Row>
               ))
@@ -234,3 +253,12 @@ export class ProfileView extends React.Component {
     );
   }
 }
+
+ProfileView.propTypes = {
+  profile: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string.isRequired
+  })
+};
