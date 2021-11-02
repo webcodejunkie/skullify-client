@@ -1,0 +1,28 @@
+.loginLayout {
+  background-image: url(./images/giphy.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+}
+
+.creepyHeaders {
+  color: red;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.headersWhite {
+  font-family: 'Noto Sans Display', sans-serif;
+  color: white;
+  letter-spacing: 3px;
+  text-align: center;
+}

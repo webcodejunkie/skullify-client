@@ -1,0 +1,23 @@
+.navbarSkullify {
+  width: 100%;
+  position: absolute;
+  background-color: transparent;
+  z-index: 2;
+  padding: 3rem;
+}
+
+.skullifyBrand {
+  font-family: "Nosifer", cursive;
+  color: white;
+  letter-spacing: 3px;
+  font-size: 20px;
+}
+
+.navbarLinkText {
+  color: #8f8d91;
+  padding: 8px;
+
+  &:hover {
+    color: white;
+  }
+}

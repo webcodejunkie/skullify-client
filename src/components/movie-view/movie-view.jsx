@@ -1,59 +1,111 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
-import { MovieCard } from '../movie-card/movie-card';
+import { Link } from 'react-router-dom';
+
+import { CommentSection } from '../comment-section-view/comment-section-view';
+import { CarouselView } from '../carousel-view/carousel-view';
+import { Navbar } from '../navbar-view/navbar-view';
+
+import './movie-view.scss';
+
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 
 export class MovieView extends React.Component {
 
-  keypressCallback(event) {
-    console.log(event.key);
+  constructor() {
+    super();
+    this.state = {
+      isFavorite: 'Favorite'
+    };
   }
 
-  componentDidMount() {
-    document.addEventListener('keypress', this.keypressCallback);
+  onFavorite() {
+    this.setState({
+      isFavorite: 'Favorited!'
+    });
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user');
+
+
+    axios.post(`https://skullify.herokuapp.com/users/${username}/movies/` + this.props.movie._id, {}, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('keypress', this.keypressCallback);
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
+    window.open('/', '_self');
   }
+
+
+
 
   render() {
-    const { movie, onBackClick } = this.props;
+    const { movie, onBackClick, user } = this.props;
 
 
     return (
-      <div className="movie-view">
-        <div className="movie-poster">
-          <img src={movie.ImagePath} />
-        </div>
-        <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
-        </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Description}</span>
-        </div>
-        <div className="genre-title">
-          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre.Title}</span>
-        </div>
-        <div className="genre-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Genre.Description}</span>
-        </div>
-        <div className="director-title">
-          <span className="label">Director: </span>
-          <span className="value">{movie.Director.Name}</span>
-        </div>
-        <div className="director-bio">
-          <span className="label">Bio: </span>
-          <span className="value">{movie.Director.Bio}</span>
-        </div>
+      <Container>
+        <Navbar />
+        <Container className="d-flex flex-row justify-content-end align-items-baseline">
+          <div className="mr-2">
+            <p>Signed in as <span> <Link to={`/users/${user}`}>{user}</Link> </span> </p>
+          </div>
+          <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
+        </Container>
+        <CarouselView />
+        <div className="movie-view">
+          <Row>
+            <Col className="d-flex flex-column">
+              <div>
+                <Image className="movie-poster" src={movie.ImagePath} />
+              </div>
+              <Button className="followButton" onClick={() => this.onFavorite()} >{this.state.isFavorite}</Button>
 
-        <button onClick={() => { onBackClick(null); }}>Back</button>
-
-      </div>
+            </Col>
+            <Col className="movieViewBlock">
+              <div className="movie-title">
+                <div className="label">Title</div>
+                <span className="value">{movie.Title}</span>
+              </div>
+              <div className="movie-description">
+                <div className="label">Description</div>
+                <span className="value">{movie.Description}</span>
+              </div>
+              <div className="genre-title">
+                <div className="label">Genre</div>
+                <Link to={`/genres/${movie.Genre.Title}`}>
+                  <span className="value">{movie.Genre.Title}</span>
+                </Link>
+              </div>
+              <div className="director-title">
+                <div className="label">Director</div>
+                <Link to={`/directors/${movie.Director.Name}`}>
+                  <span className="value">{movie.Director.Name}</span>
+                </Link>
+              </div>
+            </Col>
+          </Row>
+          <CommentSection />
+          <Button className="m-4" variant="danger" onClick={() => { onBackClick(null); }}>Back</Button>
+        </div>
+      </Container>
     );
   }
 }
