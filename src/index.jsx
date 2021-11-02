@@ -1,6 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MainView } from './components/main-view/main-view';
+import MainView from './components/main-view/main-view';
+
+// React-Redux
+
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
+import moviesApp from './reducers/reducers';
+
+const store = createStore(moviesApp, devToolsEnhancer());
+
 
 //Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';
@@ -9,7 +19,9 @@ import './index.scss';
 class MySkullifyApplication extends React.Component {
   render() {
     return (
-      <MainView />
+      <Provider store={store}>
+        <MainView />
+      </Provider>
     );
   }
 }

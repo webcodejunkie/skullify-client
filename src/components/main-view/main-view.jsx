@@ -21,12 +21,17 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
+import { connect } from 'react-redux';
+import { setMovies } from '../../actions/actions';
+
+import MoviesList from '../movies-list/movies-list';
+
+
 export class MainView extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      movies: [],
       user: null
     };
   }
@@ -36,9 +41,7 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        this.setState({
-          movies: response.data
-        });
+        this.props.setMovies(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -67,7 +70,8 @@ export class MainView extends React.Component {
 
   render() {
 
-    const { movies, user } = this.state;
+    const { user } = this.state;
+    const { movies } = this.props;
 
     return (
       <Router>
@@ -75,7 +79,7 @@ export class MainView extends React.Component {
 
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
-          if (movies.length === 0) return <div className="main-view"></div>;
+          if (movies.length === 0) return <MoviesList movies={movies} />;
 
           return (
             <div>
@@ -113,7 +117,7 @@ export class MainView extends React.Component {
         <Route path="/users/:username" render={({ history }) => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
-          if (movies.length === 0) return <div className="main-view"></div>;
+          if (movies.length === 0) return <MoviesList movies={movies} />;
 
           return <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
         }} />
@@ -121,7 +125,7 @@ export class MainView extends React.Component {
         <Route path="/movies/:movieId" render={({ match, history }) => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
-          if (movies.length === 0) return <div className="main-view"></div>;
+          if (movies.length === 0) return <MoviesList movies={movies} />;
 
           return <Col>
             <MovieView user={user} movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
@@ -131,7 +135,7 @@ export class MainView extends React.Component {
         <Route path="/directors/:name" render={({ match, history }) => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
-          if (!movies) return <div className="main-view" />
+          if (!movies) return <MoviesList movies={movies} />
           return <Col>
             <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
           </Col>
@@ -140,7 +144,7 @@ export class MainView extends React.Component {
         <Route path="/genres/:title" render={({ match, history }) => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
-          if (!movies) return <div className="main-view" />
+          if (!movies) return <MoviesList movies={movies} />
           return <Col>
             <GenreView genre={movies.find(m => m.Genre.Title === match.params.title).Genre} onBackClick={() => history.goBack()} />
           </Col>
@@ -149,3 +153,9 @@ export class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies })(MainView);

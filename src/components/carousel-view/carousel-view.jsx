@@ -15,7 +15,7 @@ export class CarouselView extends React.Component {
   render() {
 
     return (
-      <Container fluid className="carouselSpace">
+      <Container className="carouselSpace">
         <Carousel fade>
           <Carousel.Item>
             <img
