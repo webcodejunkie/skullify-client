@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Navbar } from '../navbar-view/navbar-view';
+import { NavbarView } from '../navbar-view/navbar-view';
 
 import './register-view.scss';
 
@@ -38,7 +38,7 @@ export function RegisterView(props) {
 
   return (
     <div className="registerScreen">
-      < Navbar />
+      < NavbarView />
       <Container className="registerLayout">
 
         <div className="text-center">

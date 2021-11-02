@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import { Navbar } from '../navbar-view/navbar-view';
+import { NavbarView } from '../navbar-view/navbar-view';
 import { GenreView } from '../genre-view/genre-view';
 
 export class DirectorView extends React.Component {
@@ -18,7 +18,7 @@ export class DirectorView extends React.Component {
 
     return (
       <Container>
-        <Navbar />
+        <NavbarView />
         <Row>
           <Col className="p-5">
             <div>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { CommentSection } from '../comment-section-view/comment-section-view';
 import { CarouselView } from '../carousel-view/carousel-view';
-import { Navbar } from '../navbar-view/navbar-view';
+import { NavbarView } from '../navbar-view/navbar-view';
 
 import './movie-view.scss';
 
@@ -62,7 +62,7 @@ export class MovieView extends React.Component {
 
     return (
       <Container>
-        <Navbar />
+        <NavbarView />
         <Container className="d-flex flex-row justify-content-end align-items-baseline">
           <div className="mr-2">
             <p>Signed in as <span> <Link to={`/users/${user}`}>{user}</Link> </span> </p>

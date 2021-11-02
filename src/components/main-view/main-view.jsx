@@ -10,7 +10,7 @@ import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegisterView } from '../register-view/register-view';
-import { Navbar } from '../navbar-view/navbar-view';
+import { NavbarView } from '../navbar-view/navbar-view';
 import { CarouselView } from '../carousel-view/carousel-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
@@ -83,7 +83,7 @@ export class MainView extends React.Component {
 
           return (
             <div>
-              <Navbar />
+              <NavbarView />
               <Container className="d-flex flex-row justify-content-end align-items-baseline">
                 <div className="mr-2">
                   <p>Signed in as <span> <Link to={`/users/${user}`}>{localStorage.getItem('user')}</Link> </span> </p>

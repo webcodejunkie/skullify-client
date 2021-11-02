@@ -12,7 +12,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import { RegisterView } from '../register-view/register-view';
 
-export class Navbar extends React.Component {
+export class NavbarView extends React.Component {
 
   render() {
     return (

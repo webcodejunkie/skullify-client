@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-import { Navbar } from '../navbar-view/navbar-view';
+import { NavbarView } from '../navbar-view/navbar-view';
 
 import './login-view.scss';
 
@@ -31,7 +31,7 @@ export function LoginView(props) {
 
   return (
     <div className="d-flex flex-column">
-      <Navbar />
+      <NavbarView />
       <Container fluid className="loginLayout">
         <div>
           <h1 className="headersWhite">Resume The <span className="creepyHeaders">Terror</span></h1>

@@ -13,7 +13,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
-import { Navbar } from '../navbar-view/navbar-view';
+import { NavbarView } from '../navbar-view/navbar-view';
 
 import { Link } from 'react-router-dom'
 import { CarouselView } from '../carousel-view/carousel-view';
@@ -168,7 +168,7 @@ export class ProfileView extends React.Component {
 
     return (
       <Container className="profileWrapper">
-        <Navbar />
+        <NavbarView />
         <Container className="d-flex flex-row justify-content-end align-items-baseline">
           <div className="mr-2">
             <p>Signed in as <span> <Link to={`/users/${user}`}>{this.state.Username}</Link> </span> </p>
