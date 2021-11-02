@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { connect } from 'react-redux';
 
-import VisibilityFilterInput from '../visbility-filter-input/visibility-filter-input';
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 import { MovieCard } from '../movie-card/movie-card';
 
 const mapStateToProps = state => {
