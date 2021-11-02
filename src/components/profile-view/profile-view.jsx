@@ -169,12 +169,6 @@ export class ProfileView extends React.Component {
     return (
       <Container className="profileWrapper">
         <NavbarView />
-        <Container className="d-flex flex-row justify-content-end align-items-baseline">
-          <div className="mr-2">
-            <p>Signed in as <span> <Link to={`/users/${user}`}>{this.state.Username}</Link> </span> </p>
-          </div>
-          <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
-        </Container>
         <Button className="backProfileButton" variant="danger" onClick={() => { onBackClick() }}>Back</Button>
         <div className="profileInformation">
           <div className="profileContent">

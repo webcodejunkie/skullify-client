@@ -42,28 +42,28 @@ export function RegisterView(props) {
       <Container className="registerLayout">
 
         <div className="text-center">
-          <h1 className="creepyHeaders">Welcome To Skullify</h1>
+          <h3 className="creepyHeaders">Enter Skullify</h3>
           <p>Skullify is a platform created specifically for horror fanatics. Enjoy browsing a multitude of content such as TV series, movies, and reviews!</p>
           <p>Explore the deeper world of terror that awaits you..</p>
         </div>
 
         <Form className="d-flex flex-column">
-          <Form.Group>
+          <Form.Group className="formPadding">
             Username
             <Form.Control type='text' value={username} onChange={e => setUsername(e.target.value)} />
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="formPadding">
             Password
             <Form.Control type='password' value={password} onChange={e => setPassword(e.target.value)} />
 
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="formPadding">
             Email Address
             <Form.Control type='email' value={email} onChange={e => setEmail(e.target.value)} />
             <Form.Text className="importantText">We'll never share your email with anyone else </Form.Text>
 
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="formPadding">
             Birthday
             <Form.Control type='date' value={birthday} onChange={e => setBirthday(e.target.value)} />
 

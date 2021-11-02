@@ -2,9 +2,9 @@ import React from 'react';
 
 import './carousel-view.scss';
 
-import imageOne from './movie-posters/sinister2.png';
-import imageTwo from './movie-posters/oculus.png';
-import imageThree from './movie-posters/redeye.png';
+import imageOne from './movie-posters/readyornotposter.jpg';
+import imageTwo from './movie-posters/chuckyposter.jpg';
+import imageThree from './movie-posters/dawnofthedead.jpg';
 
 import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
@@ -15,53 +15,51 @@ export class CarouselView extends React.Component {
   render() {
 
     return (
-      <Container className="carouselSpace">
+      <div className="carouselSpace">
         <Carousel fade>
           <Carousel.Item>
             <img
-              className="d-block w-100 carouselImages"
+              className="d-block carouselImages"
               src={imageOne}
               alt="First slide"
             />
             <Carousel.Caption className="captionBackground position-static">
-              <h3>Coming Soon</h3>
+              <h3>Ready Or Not</h3>
               <p>
-                Washed-up true crime writer Ellison Oswalt finds a box of super 8 home movies in his new home
-                that suggest the murder that he is currently researching is the work of a serial killer whose legacy dates back to the 1960s.
+                A bride's wedding night takes a sinister turn when her eccentric new in-laws force her to take part in a terrifying game.
               </p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className="d-block w-100 carouselImages"
+              className="d-block carouselImages"
               src={imageTwo}
               alt="Second slide"
             />
 
             <Carousel.Caption className="captionBackground position-static">
-              <h3>Coming Soon</h3>
+              <h3>Child's Play</h3>
               <p>
-                A woman tries to exonerate her brother, who was convicted of murder, by proving that the crime was committed by a supernatural phenomenon.
+                A single mother gives her son a much sought-after doll for his birthday, only to discover that it is possessed by the soul of a serial killer.
               </p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className="d-block w-100 carouselImages"
+              className="d-block carouselImages"
               src={imageThree}
               alt="Third slide"
             />
 
             <Carousel.Caption className="captionBackground position-static">
-              <h3>Coming Soon</h3>
+              <h3>Dawn Of The Dead</h3>
               <p>
-                A woman is kidnapped by a stranger on a routine flight. Threatened by the potential murder of her father,
-                she is pulled into a plot to assist her captor in a political assassination.
+                A nurse, a policeman, a young married couple, a salesman and other survivors of a worldwide plague that is producing aggressive, flesh-eating zombies, take refuge in a mega Midwestern shopping mall.
               </p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-      </Container>
+      </div>
     );
   }
 }

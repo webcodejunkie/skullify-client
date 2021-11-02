@@ -1,13 +1,18 @@
 import axios from 'axios';
 import React from 'react';
 
+// React Router
+
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+// SCSS Import
+
 import './main-view.scss';
 
+// React Components
+
 import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegisterView } from '../register-view/register-view';
 import { NavbarView } from '../navbar-view/navbar-view';
@@ -16,15 +21,19 @@ import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
 
+// React Bootstrap 
+
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
+
+
+// Redux Imports
 
 import { connect } from 'react-redux';
 import { setMovies } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 
 
 export class MainView extends React.Component {
@@ -83,26 +92,10 @@ export class MainView extends React.Component {
 
           return (
             <div>
-              <NavbarView />
-              <Container className="d-flex flex-row justify-content-end align-items-baseline">
-                <div className="mr-2">
-                  <p>Signed in as <span> <Link to={`/users/${user}`}>{localStorage.getItem('user')}</Link> </span> </p>
-                </div>
-                <Button variant="danger" onClick={() => { this.onLoggedOut() }}>Log off</Button>
-              </Container>
+              <NavbarView user={user} />
               <CarouselView />
               <Container className="main-view">
-
-                {
-                  movies.map(m => (
-                    <Row className="justify-content-center" key={m._id}>
-                      <Col className="m-2">
-                        <MovieCard movie={m} />
-                      </Col>
-                    </Row>
-                  ))
-                }
-
+                <MoviesList movies={movies} />
               </Container>
             </div>
           );
@@ -127,9 +120,9 @@ export class MainView extends React.Component {
 
           if (movies.length === 0) return <MoviesList movies={movies} />;
 
-          return <Col>
+          return <div>
             <MovieView user={user} movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
-          </Col>
+          </div>
         }} />
 
         <Route path="/directors/:name" render={({ match, history }) => {
