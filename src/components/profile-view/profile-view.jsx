@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
+import validator from 'validator';
 
 import './profile-view.scss';
 
@@ -14,9 +15,10 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 import { NavbarView } from '../navbar-view/navbar-view';
+import { SignedInView } from '../signed-in-view/signed-in-view';
 
-import { Link } from 'react-router-dom'
-import { CarouselView } from '../carousel-view/carousel-view';
+import { connect } from 'react-redux';
+import { setUser, updateUser } from '../../actions/actions';
 
 export class ProfileView extends React.Component {
 
@@ -28,6 +30,8 @@ export class ProfileView extends React.Component {
       Password: null,
       Email: null,
       Birthday: null,
+      usernameError: '',
+      passwordError: '',
       FavoriteMovies: []
     };
   }
@@ -73,6 +77,7 @@ export class ProfileView extends React.Component {
     e.preventDefault();
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
+    const isValid = this.validate();
 
     axios.put(`https://skullify.herokuapp.com/users/${username}`,
       {
@@ -89,12 +94,13 @@ export class ProfileView extends React.Component {
           Username: response.data.Username,
           Password: response.data.Password,
           Email: response.data.Email,
-          Birthday: response.data.Birthday
+          Birthday: response.data.Birthday,
+          usernameError: '',
+          passwordError: ''
+
         });
         localStorage.setItem('user', this.state.Username);
         const data = response.data;
-        console.log(data);
-        console.log(this.state.Username);
         alert(username + " has been updated!");
       })
       .catch(function (error) {
@@ -157,6 +163,57 @@ export class ProfileView extends React.Component {
     this.state.Birthday = value;
   }
 
+  validate = () => {
+
+    const isAlphaNumeric = (str) => {
+      return /^(\d|\w)+$/.test(str);
+    };
+
+    let usernameError = '';
+    let passwordError = '';
+
+    if (!isAlphaNumeric(this.state.Username)) {
+      usernameError = 'contains non alphanumeric characters.';
+    }
+
+    if (usernameError) {
+      this.setState({ usernameError });
+
+      return false;
+    } else {
+      this.setState({ usernameError: '' });
+    }
+
+
+    if (this.state.Username.length < 5) {
+      usernameError = 'username must be more then 5 characters.';
+    }
+
+    if (usernameError) {
+      this.setState({ usernameError });
+
+      return false;
+    } else {
+      this.setState({ usernameError: '' });
+    }
+
+    if (this.state.Password.length < 8) {
+      passwordError = 'password must be more then 8 characters.';
+
+    }
+
+    if (passwordError) {
+      this.setState({ passwordError });
+
+      return false;
+    } else {
+      this.setState({ passwordError: '' });
+    }
+
+    console.log(this.state.usernameError, this.state.passwordError);
+
+  };
+
 
   render() {
 
@@ -169,6 +226,7 @@ export class ProfileView extends React.Component {
     return (
       <Container className="profileWrapper">
         <NavbarView />
+        <SignedInView />
         <Button className="backProfileButton" variant="danger" onClick={() => { onBackClick() }}>Back</Button>
         <div className="profileInformation">
           <div className="profileContent">
@@ -198,24 +256,27 @@ export class ProfileView extends React.Component {
           <div>
             <h4>EDIT PROFILE</h4>
           </div>
+
           <Form className="formDisplay" onSubmit={(e) => this.editUser(e)}>
             <Form.Group>
               Username
-              <Form.Control type='text' name="Username" placeholder="New Username" onChange={(e) => this.setUsername(e.target.value)} required />
+              <Form.Control type='text' name="Username" placeholder={this.state.Username} onChange={(e) => this.setUsername(e.target.value)} required />
+              <div className="errorText">{this.state.usernameError}</div>
             </Form.Group>
             <Form.Group>
+
               Password
               <Form.Control type='password' name="Password" placeholder="New Password" onChange={(e) => this.setPassword(e.target.value)} required />
-
+              <div className="errorText">{this.state.passwordError}</div>
             </Form.Group>
             <Form.Group>
               Email Address
-              <Form.Control type='email' name="Email" placeholder="New Email" onChange={(e) => this.setEmail(e.target.value)} required />
+              <Form.Control type='email' name="Email" placeholder={this.state.Email} onChange={(e) => this.setEmail(e.target.value)} required />
 
             </Form.Group>
             <Form.Group>
               Birthday
-              <Form.Control type='date' name="Birthday" onChange={(e) => this.setBirthday(e.target.value)} />
+              <Form.Control type='date' name="Birthday" onChange={(e) => this.setBirthday(e.target.value)} required />
 
             </Form.Group>
             <div className="marginSpacer">
@@ -256,3 +317,12 @@ ProfileView.propTypes = {
     Birthday: PropTypes.string.isRequired
   })
 };
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    movies: state.movies
+  }
+}
+
+export default connect(mapStateToProps, { setUser, updateUser })(ProfileView);

@@ -20,6 +20,7 @@ import { CarouselView } from '../carousel-view/carousel-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
+import { SignedInView } from '../signed-in-view/signed-in-view';
 
 // React Bootstrap 
 
@@ -33,7 +34,6 @@ import { connect } from 'react-redux';
 import { setMovies } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
-import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 
 
 export class MainView extends React.Component {
@@ -93,6 +93,7 @@ export class MainView extends React.Component {
           return (
             <div>
               <NavbarView user={user} />
+              <SignedInView />
               <CarouselView />
               <Container className="main-view">
                 <MoviesList movies={movies} />
@@ -108,7 +109,7 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/users/:username" render={({ history }) => {
-          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+          if (!user) return <RegisterView />
 
           if (movies.length === 0) return <MoviesList movies={movies} />;
 

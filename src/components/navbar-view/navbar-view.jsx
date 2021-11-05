@@ -11,15 +11,11 @@ import Button from 'react-bootstrap/Button';
 
 export class NavbarView extends React.Component {
 
+  constructor() {
+    super();
 
-  onLoggedOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.setState({
-      user: null
-    });
-    window.open('/', '_self');
   }
+
 
   render() {
     const { user } = this.props;
@@ -40,7 +36,7 @@ export class NavbarView extends React.Component {
             >
               <Nav className="me-auto" variant="dark">
                 <Link className="navbarLinkText" to={`/`}>
-                  HOME
+                  CRYPT
                 </Link>
                 <Link className="navbarLinkText" to={`/register`}>
                   REGISTER
@@ -48,7 +44,6 @@ export class NavbarView extends React.Component {
                 <Link className="navbarLinkText" to={`/users/${user}`}>
                   MY ACCOUNT
                 </Link>
-                <a className="navbarLinkText" onClick={() => this.onLoggedOut()} >LOG OFF</a>
               </Nav>
             </Nav>
           </Navbar.Collapse>

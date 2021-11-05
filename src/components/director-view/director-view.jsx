@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import { NavbarView } from '../navbar-view/navbar-view';
 import { GenreView } from '../genre-view/genre-view';
+import { SignedInView } from '../signed-in-view/signed-in-view';
+import { CarouselView } from '../carousel-view/carousel-view';
 
 export class DirectorView extends React.Component {
   render() {
@@ -19,6 +21,7 @@ export class DirectorView extends React.Component {
     return (
       <Container>
         <NavbarView />
+        <SignedInView />
         <Row>
           <Col className="p-5">
             <div>

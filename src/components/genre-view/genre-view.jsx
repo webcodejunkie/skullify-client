@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
 import { NavbarView } from '../navbar-view/navbar-view';
+import { SignedInView } from '../signed-in-view/signed-in-view';
 
 export class GenreView extends React.Component {
   render() {
@@ -19,6 +20,7 @@ export class GenreView extends React.Component {
     return (
       <Container>
         <NavbarView />
+        <SignedInView />
         <Row>
           <Col className="p-5">
             <div>

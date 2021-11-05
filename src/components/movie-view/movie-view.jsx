@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { CommentSection } from '../comment-section-view/comment-section-view';
 import { CarouselView } from '../carousel-view/carousel-view';
 import { NavbarView } from '../navbar-view/navbar-view';
+import { SignedInView } from '../signed-in-view/signed-in-view';
 
 import './movie-view.scss';
 
@@ -63,6 +64,7 @@ export class MovieView extends React.Component {
     return (
       <div>
         <NavbarView />
+        <SignedInView />
         <CarouselView />
         <Container>
           <div className="movie-view">
