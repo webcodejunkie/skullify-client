@@ -22,7 +22,7 @@ export class SignedInView extends React.Component {
 
     return (
       <Container className="signedInContainer">
-        <p>SIGNED IN AS {username}</p>
+        <p>Signed in as {username}</p>
         <div className="logOutButton">
           <a className="navbarLinkText" onClick={() => this.onLoggedOut()} >LOG OUT</a>
         </div>

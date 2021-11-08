@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -14,6 +14,11 @@ import Button from 'react-bootstrap/Button';
 export function LoginView(props) {
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const errorMessage = () => {
+    setError('This user does not exist.');
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +32,10 @@ export function LoginView(props) {
       })
       .catch(err => {
         console.log(err + ' no such user exists');
+        errorMessage();
       });
+
+
   };
 
   return (
@@ -37,20 +45,24 @@ export function LoginView(props) {
         <div>
           <h1 className="creepyHeaders">Resume The Terror</h1>
         </div>
+
         <Form className="d-flex flex-column align-items-center">
           <Form.Group className="p-2">
             Username
             <Form.Control type='text' value={Username} onChange={e => setUsername(e.target.value)} required />
-            <Form.Control.Feedback type="invalid">Please provide a username min of 5 characters</Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group className="p-2">
             Password
             <Form.Control type='password' value={Password} onChange={e => setPassword(e.target.value)} required />
 
           </Form.Group>
+          <div className="importantText">{error}</div>
           <Form.Group className="p-2">
+
             <Button variant="primary" type='submit' onClick={handleSubmit}>Login</Button>
           </Form.Group>
+
         </Form>
       </Container>
     </div>

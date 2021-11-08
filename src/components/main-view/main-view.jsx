@@ -93,8 +93,8 @@ export class MainView extends React.Component {
           return (
             <div>
               <NavbarView user={user} />
-              <SignedInView />
               <CarouselView />
+              <SignedInView />
               <Container className="main-view">
                 <MoviesList movies={movies} />
               </Container>
@@ -149,7 +149,10 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return {
+    movies: state.movies,
+    user: state.user
+  }
 }
 
 export default connect(mapStateToProps, { setMovies })(MainView);

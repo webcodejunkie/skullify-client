@@ -4,7 +4,6 @@ import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 
-import { CommentSection } from '../comment-section-view/comment-section-view';
 import { CarouselView } from '../carousel-view/carousel-view';
 import { NavbarView } from '../navbar-view/navbar-view';
 import { SignedInView } from '../signed-in-view/signed-in-view';
@@ -64,8 +63,8 @@ export class MovieView extends React.Component {
     return (
       <div>
         <NavbarView />
-        <SignedInView />
         <CarouselView />
+        <SignedInView />
         <Container>
           <div className="movie-view">
             <Row>
@@ -99,7 +98,6 @@ export class MovieView extends React.Component {
                 </div>
               </Col>
             </Row>
-            <CommentSection />
             <Button className="m-4" variant="danger" onClick={() => { onBackClick(null); }}>Back</Button>
           </div>
         </Container>

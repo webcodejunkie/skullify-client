@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes, { string } from 'prop-types';
-import validator from 'validator';
 
 import './profile-view.scss';
 
@@ -227,7 +226,7 @@ export class ProfileView extends React.Component {
       <Container className="profileWrapper">
         <NavbarView />
         <SignedInView />
-        <Button className="backProfileButton" variant="danger" onClick={() => { onBackClick() }}>Back</Button>
+        <Button variant="danger" onClick={() => { onBackClick() }}>Back</Button>
         <div className="profileInformation">
           <div className="profileContent">
             <h4>PROFILE</h4>

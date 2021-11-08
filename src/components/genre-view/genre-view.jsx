@@ -19,21 +19,23 @@ export class GenreView extends React.Component {
 
     return (
       <Container>
-        <NavbarView />
-        <SignedInView />
-        <Row>
-          <Col className="p-5">
-            <div>
-              <div className="label">Genre</div>
-              <div className="value">{genre.Title}</div>
-              <div className="genre-bio">
-                <div className="label">Description</div>
-                <span className="value">{genre.Description}</span>
+        <div className="d-flex flex-column">
+          <NavbarView />
+          <SignedInView />
+          <Row>
+            <Col className="p-5">
+              <div>
+                <div className="label">Genre</div>
+                <div className="value">{genre.Title}</div>
+                <div className="genre-bio">
+                  <div className="label">Description</div>
+                  <span className="value">{genre.Description}</span>
+                </div>
+                <Button variant="danger" className="mt-2" onClick={() => { onBackClick(null); }}>Back</Button>
               </div>
-              <Button variant="danger" className="mt-2" onClick={() => { onBackClick(null); }}>Back</Button>
-            </div>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </div>
       </Container >
     );
   }
