@@ -63,8 +63,8 @@ export class MovieView extends React.Component {
     return (
       <div>
         <NavbarView />
-        <CarouselView />
         <SignedInView />
+        <CarouselView />
         <Container>
           <div className="movie-view">
             <Row>

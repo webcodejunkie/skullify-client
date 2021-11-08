@@ -20,7 +20,7 @@ export class NavbarView extends React.Component {
   render() {
     const { user } = this.props;
     return (
-      <Navbar collaspeonselect="true" expand="lg" variant="dark" className="navbarSkullify position-absolute">
+      <Navbar collaspeonselect="true" expand="lg" variant="dark" className="navbarSkullify">
         <Container>
           <Link className="navbarLinkText" to={`/`}>
             <div className="skullifyBrand">
