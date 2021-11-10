@@ -4,7 +4,6 @@ import React from 'react';
 // React Router
 
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 // SCSS Import
 

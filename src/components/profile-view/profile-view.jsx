@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import './profile-view.scss';
 
@@ -57,7 +57,13 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
-        this.props.setUser(response.data);
+        this.setState({
+          Username: response.data.Username,
+          Password: response.data.Password,
+          Email: response.data.Email,
+          Birthday: response.data.Birthday,
+          FavoriteMovies: response.data.FavoriteMovies
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -220,7 +226,7 @@ export class ProfileView extends React.Component {
       <Container className="profileWrapper">
         <NavbarView />
         <SignedInView />
-        <Button variant="danger" onClick={() => { onBackClick() }}>Back</Button>
+        <Button className="backProfileButton" variant="danger" onClick={() => { onBackClick() }}>Back</Button>
         <div className="profileInformation">
           <div className="profileContent">
             <h4>PROFILE</h4>
@@ -281,7 +287,7 @@ export class ProfileView extends React.Component {
           </div>
         </div>
         <div className="favoriteMoviesView">
-          <h2>{user}'s Favorites</h2>
+          <h2>{user.Username}'s Favorites</h2>
           <div className="responsiveMovieWrapper">
             {
               FavoritedMovies.map((movie) => (
