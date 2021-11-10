@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { connect } from 'react-redux';
 
 import { NavbarView } from '../navbar-view/navbar-view';
 
@@ -77,9 +76,3 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired
 };
 
-
-const mapDispatchToProps = (dispatch) => ({
-  handleSubmit: (username, password) => dispatch(handleSubmit(username, password))
-});
-
-export default connect(null, mapDispatchToProps)(LoginView);

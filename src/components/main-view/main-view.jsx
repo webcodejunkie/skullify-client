@@ -31,18 +31,25 @@ import Col from 'react-bootstrap/Col';
 // Redux Imports
 
 import { connect } from 'react-redux';
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 
 
 export class MainView extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      user: null
-    };
+
+  getUser(token) {
+    const username = localStorage.getItem('user');
+    axios.get(`https://skullify.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        this.props.setUser(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   getMovies(token) {
@@ -51,6 +58,7 @@ export class MainView extends React.Component {
     })
       .then(response => {
         this.props.setMovies(response.data);
+        console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -60,35 +68,29 @@ export class MainView extends React.Component {
 
   onLoggedIn(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
+    this.props.setUser(authData.user);
     this.getMovies(authData.token);
   }
 
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.setState({
-      user: null
-    });
+    this.props.setUser({});
+    window.open('/', '_self');
   }
 
   render() {
 
-    const { user } = this.state;
-    const { movies } = this.props;
+    const { movies, user } = this.props;
 
     return (
       <Router>
         <Route exact path="/" render={() => {
 
-          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-
-          if (movies.length === 0) return <MoviesList movies={movies} />;
+          if (!('Username' in user)) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
           return (
             <div>
@@ -103,13 +105,15 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/register" render={() => {
+          if (!('Username' in user)) return <RegisterView />
+
           if (user) return <Redirect to="/" />
 
           return <RegisterView />
         }} />
 
         <Route path="/users/:username" render={({ history }) => {
-          if (!user) return <RegisterView />
+          if (!('Username' in user)) return <RegisterView />
 
           if (movies.length === 0) return <MoviesList movies={movies} />;
 
@@ -117,7 +121,7 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/movies/:movieId" render={({ match, history }) => {
-          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+          if (!('Username' in user)) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
           if (movies.length === 0) return <MoviesList movies={movies} />;
 
@@ -127,7 +131,7 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/directors/:name" render={({ match, history }) => {
-          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+          if (!('Username' in user)) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
           if (!movies) return <MoviesList movies={movies} />
           return <Col>
@@ -136,7 +140,7 @@ export class MainView extends React.Component {
         }} />
 
         <Route path="/genres/:title" render={({ match, history }) => {
-          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+          if (!('Username' in user)) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
           if (!movies) return <MoviesList movies={movies} />
           return <Col>
@@ -155,4 +159,4 @@ let mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);

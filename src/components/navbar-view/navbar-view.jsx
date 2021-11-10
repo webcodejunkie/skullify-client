@@ -11,12 +11,6 @@ import Button from 'react-bootstrap/Button';
 
 export class NavbarView extends React.Component {
 
-  constructor() {
-    super();
-
-  }
-
-
   render() {
     const { user } = this.props;
     return (
