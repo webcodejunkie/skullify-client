@@ -5,6 +5,8 @@
 Using React, build the client-side for an application called Skullify based on its existing
 server-side code (REST API and database) which is located here https://github.com/webcodejunkie/movie_api
 
+You can also find a link to where I'm hosting Skullify — Through Netlify https://skullify.netlify.app/
+
 ## The 5 W's for this application
 
 1. Who—The users of the Skullify application. They will be movie enthusiasts who enjoy
