@@ -17,7 +17,7 @@ import { NavbarView } from '../navbar-view/navbar-view';
 import { SignedInView } from '../signed-in-view/signed-in-view';
 
 import { connect } from 'react-redux';
-import { setUser, updateUser } from '../../actions/actions';
+import { setUser } from '../../actions/actions';
 
 export class ProfileView extends React.Component {
 
