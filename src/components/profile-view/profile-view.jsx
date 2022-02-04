@@ -324,4 +324,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { setUser, updateUser })(ProfileView);
+export default connect(mapStateToProps, { setUser })(ProfileView);
