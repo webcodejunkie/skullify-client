@@ -93,6 +93,11 @@ Profile view, single movie view, and all movies view
 
 ### Node_Modules
 - Parcel
+- Axios
+- Bootstrap
+- React-Redux
+- React Router
+
 
 ### JavaScript Framework
 - React
