@@ -39,7 +39,7 @@ export function RegisterView(props) {
   return (
     <div className="registerScreen">
       < NavbarView />
-      <Container className="registerLayout">
+      <div className="registerLayout">
 
         <div className="text-center">
           <h2 className="creepyHeaders">Enter Skullify</h2>
@@ -73,7 +73,7 @@ export function RegisterView(props) {
           </Form.Group>
           <Button variant="success" type='submit' onClick={handleSubmit}>Register</Button>
         </Form>
-      </Container>
+      </div>
     </div>
   );
 }

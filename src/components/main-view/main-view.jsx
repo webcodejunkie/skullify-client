@@ -94,8 +94,8 @@ export class MainView extends React.Component {
           return (
             <div>
               <NavbarView user={user} />
-              <SignedInView />
               <CarouselView />
+              <SignedInView />
               <Container className="main-view">
                 <MoviesList movies={movies} />
               </Container>

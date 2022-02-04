@@ -21,7 +21,7 @@ export class NavbarView extends React.Component {
               SKULLIFY
             </div>
           </Link>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Toggle className="nav-link-wrapper" aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
             <Nav
               className="me-auto my-2 my-lg-0"
@@ -30,7 +30,7 @@ export class NavbarView extends React.Component {
             >
               <Nav className="me-auto" variant="dark">
                 <Link className="navbarLinkText" to={`/`}>
-                  CRYPT
+                  MOVIES
                 </Link>
                 <Link className="navbarLinkText" to={`/register`}>
                   REGISTER

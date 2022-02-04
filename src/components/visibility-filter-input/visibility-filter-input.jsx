@@ -10,7 +10,7 @@ import { setFilter } from '../../actions/actions';
 function VisibilityFilterInput(props) {
   return <>
     <div className="p-3">
-      <h2>Search The Crypt ⌕</h2>
+      <h2>Search The Crypt</h2>
       <Form.Control
         onChange={e => props.setFilter(e.target.value)}
         value={props.visbilityFilter}

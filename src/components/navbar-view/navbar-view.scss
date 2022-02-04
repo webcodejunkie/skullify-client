@@ -1,8 +1,9 @@
 .navbarSkullify {
+  background-color: #1c1818;
+  position: absolute !important;
   left: 0;
   right: 0;
   width: 100%;
-  background-color: transparent;
   z-index: 2;
   padding: 3rem;
 }
@@ -23,4 +24,8 @@
   &:hover {
     color: white;
   }
+}
+
+.nav-link-wrapper {
+  padding: 20px 0px;
 }
